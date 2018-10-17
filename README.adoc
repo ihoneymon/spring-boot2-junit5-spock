@@ -150,3 +150,4 @@ junit5는 람다를 기반으로 한 선언(assertion)을 지원한다. junit4�
 * link:https://docs.gradle.org/current/userguide/managing_transitive_dependencies.html[Managing Transitive Dependencies - Gradle]
 * link:https://junit.org/junit5/[JUnit5]
 ** link:https://junit.org/junit5/docs/current/user-guide/[JUnit5 User Guide]
+** link:http://javacan.tistory.com/entry/JUnit-5-Intro[JUnit5 소개 - JavaCan]
