@@ -10,49 +10,47 @@ JUnit5가 세상에 모습을 드러내놓은지는 제법 됐다. 새로운 프
 [source,groovy]
 ----
 plugins {
-    id 'org.springframework.boot' version '2.1.6.RELEASE'
-    id 'java'
+    id "java"
+    id "groovy"
+    id "org.springframework.boot" version "2.1.6.RELEASE"
 }
 
-apply plugin: 'io.spring.dependency-management'
+apply plugin: "io.spring.dependency-management"
 
-
-group = 'io.honeymon.boot'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
-
-configurations {
-    developmentOnly
-    runtimeClasspath {
-        extendsFrom developmentOnly
-    }
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
+group = "io.honeymon.study"
+version = "0.0.1-SNAPSHOT"
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    compileOnly 'org.projectlombok:lombok'
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.codehaus.groovy:groovy")
 
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly("com.h2database:h2")
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
-    runtimeOnly 'com.h2database:h2'
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude module: "junit" // JUnit4 제거, 스프링 부트 2.2.0 부터 JUnit5 적용
+    }
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testImplementation("org.codehaus.groovy:groovy-test")
+    testImplementation("org.spockframework:spock-core:1.3-groovy-2.5")
+    testImplementation("org.spockframework:spock-spring:1.3-groovy-2.5")
+}
 
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-    annotationProcessor 'org.projectlombok:lombok'
-
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
+test {
+    useJUnitPlatform() //  <1>
 }
 ----
+<1> JUnit5 실행, link:https://junit.org/junit5/docs/current/user-guide/#running-tests-build-gradle[] 를 살펴보면 이전에 제공하던 그레이들 플러그인(`junit-platform-gradle-plugin`)은 더이상 지원하지 않는다고 한다.
 
 === junit4 제외
 스프링 부트 스타터 ``org.springframework.boot:spring-boot-starter-test``는 junit4에 대한 의존성을 가지고 있다. 그래서 junit5를 사용하기 위해서는
