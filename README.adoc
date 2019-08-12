@@ -171,6 +171,10 @@ image::./.imgs/project-test-intellij.png[]
 
 image::./.imgs/project-test-intellij2.png[]
 
+그러면 다음과 같이 서로 다른 JUnit 엔진을 사용한다.
+
+image::./imgs/different-junit-engine.png[]
+
 테스트 실행을 위해 'Gradle'을 선택하면 다음과 같은 화면을 보게 된다.
 
 [source]
