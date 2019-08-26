@@ -1,10 +1,19 @@
 package io.honeymon.study.junit5.base;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 public class BasicTest {
+
+    @BeforeEach
+    void setUp() {
+        System.out.println("Junit5 setUp!");
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.out.println("JUnit5 teardown!");
+    }
+
     @Test
     @DisplayName("간단한 테스트")
     public void test() {

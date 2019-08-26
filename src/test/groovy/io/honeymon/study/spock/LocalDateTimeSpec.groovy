@@ -9,14 +9,14 @@ import java.time.LocalTime
 class LocalDateTimeSpec extends Specification {
 
     void setup() {
-        println "Set up!!"
+        println "Spock Set up!!"
     }
 
     /**
      * 테스트 실행 후처리
      */
     void cleanup() {
-        println "Clean up!"
+        println "Spock Clean up!"
     }
 
     def "LocalDateTime of Min"() {
