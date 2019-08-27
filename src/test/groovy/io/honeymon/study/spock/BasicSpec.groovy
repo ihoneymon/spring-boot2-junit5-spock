@@ -16,11 +16,4 @@ class BasicSpec extends Specification{
         then:
             literal == "테스트 코드(Code)를 작성해봅시다."
     }
-
-    def "뭐야??"() {
-        when:
-            def result = 10 + 20
-        then:
-            result == 30
-    }
 }

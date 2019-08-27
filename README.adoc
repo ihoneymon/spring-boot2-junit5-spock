@@ -185,15 +185,62 @@ Execution failed for task ':test'.
 
 image::./.imgs/project-test-gradle-test-not-found.png[]
 
-그레이들 테스트가 실행될 때 JUnit4 로 실행해야 하는데, `build.gradle` 스크립트에 선언한 `useJUnitPlatform()` 으로 JUnit5 가 실행되면서 Spock을 찾지 못하는 것으로 보인다. 반대로 `useJUnitPlatform()` 설정을 제거하면 JUnit5 에 맞춰 작성한 테스트가 실행되지 않는다.
+JUnit5 실행을 위한 주피터(Jupiter) 엔진만 추가된 것이라 그런데, JUnit4 를 실행하기 위해서는 JUnit4 와 JUnit5 에서 제공하는 빈티지 엔진(junit-vintage-engine) 의존성을 추가하면 된다.
 
-[NOTE]
-====
-Spock 2.0 이 나오기 전까지, JUnit5 를 실행해야하는 경우에는 Spock(~1.3) 은 빌드 테스트로 실행할 수 없다. ㅠㅅ-)
-====
+[source,groovy]
+----
+dependencies {
+  // 생략
+  testCompileOnly('junit:junit')
+  testRuntimeOnly('org.junit.vintage:junit-vintage-engine') {
+      because 'JUni 3 와 JUnit 4 테스트 실행을 위해 필요핟.'
+  }
+}
+----
+
+이렇게 해서 JUnit4 에 맞춰 작성된 테스트도 정상적으로 실행되는 것을 확인했다.
+
+JUnit4 와 JUnit5 의 애노테이션을 구분하여 사용하면 같은 클래스 안에서 실행하는 것도 가능하다.
+
+[source,java]
+----
+public class MixJunit4Junit5Test {
+    @Before
+    public void setUp4() throws Exception {
+        System.out.println("JUnit4 setUp");
+    }
+
+    @BeforeEach
+    void setUp5() {
+        System.out.println("JUnit5 setUp");
+    }
+
+    @After
+    public void tearDown4() throws Exception {
+        System.out.println("JUnit4 tearDown");
+    }
+
+    @AfterEach
+    void tearDown5() {
+        System.out.println("JUnit5 tearDown");
+    }
+
+    @org.junit.Test
+    public void testJUnit4() {
+        System.out.println("JUnit4 execute");
+    }
+
+    @org.junit.jupiter.api.Test
+    public void testJUnit5() {
+        System.out.println("JUnit5 execute");
+    }
+}
+----
+
 
 == 참고문서
 * link:https://docs.gradle.org/current/userguide/managing_transitive_dependencies.html[Managing Transitive Dependencies - Gradle]
 * link:https://junit.org/junit5/[JUnit5]
 ** link:https://junit.org/junit5/docs/current/user-guide/[JUnit5 User Guide]
 ** link:http://javacan.tistory.com/entry/JUnit-5-Intro[JUnit5 소개 - JavaCan]
+* link:https://hackernoon.com/mixing-junit4-and-junit5-2da44956de8c[Mixing JUnit4 and JUnit5]
