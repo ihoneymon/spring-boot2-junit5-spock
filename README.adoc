@@ -163,15 +163,15 @@ Spock 1.3 is the last planned release for 1.x based on JUnit 4. Spock 2.0 will b
 
 IntelliJ(2019.2)에서 Spock 을 실행하려면 그레이들 설정을 확인해야 한다.
 
-image::./.imgs/project-test-intellij.png[]
+image::.imgs/project-test-intellij.png[]
 
 그림에서 보는 것과 같이 'Run tests using' 항목은 'IntelliJ'를 선택한다.
 
-image::./.imgs/project-test-intellij2.png[]
+image::.imgs/project-test-intellij2.png[]
 
 그러면 다음과 같이 서로 다른 JUnit 엔진을 사용한다.
 
-image::./imgs/different-junit-engine.png[]
+image::.imgs/different-junit-engine.png[]
 
 테스트 실행을 위해 'Gradle'을 선택하면 다음과 같은 화면을 보게 된다.
 
